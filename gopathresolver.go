@@ -20,7 +20,6 @@ import (
 	"os/user"
     "runtime"
     "strings"
-    "fmt"
 )
 
 var PathSeparator = string(os.PathSeparator)
