@@ -1,7 +1,12 @@
-# GOPATHRESOLVER
-
+# GO Path Resolver
 
 This package provides support for resolve full path (absolute path) according several conditions.
+
+## Get
+
+```bash
+go get github.com/helviojunior/gopathresolver@v0
+```
 
 ## Usage
 
@@ -11,7 +16,7 @@ This package provides support for resolve full path (absolute path) according se
 import (
     "fmt"
 
-    resolver "github.com/helviojunior/gopathresolver"
+    resolver "github.com/helviojunior/gopathresolver@v0"
 )
 
 file := "~/teste.md"
