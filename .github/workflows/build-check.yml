@@ -35,13 +35,6 @@ permissions:
 
 jobs:
 
-
-  lic-headers:
-    runs-on: ubuntu-latest
-    steps:
-
-      - uses: actions/checkout@v4
-
   golangci-lint:
     permissions:
       contents: read  # for actions/checkout to fetch code
@@ -86,12 +79,8 @@ jobs:
 
     - run: |
         export GOBIN=$HOME/go/bin
-        go install github.com/kyoh86/richgo@latest
-        go install github.com/mitchellh/gox@latest
 
-    - run: RICHGO_FORCE_COLOR=1 PATH=$HOME/go/bin/:$PATH make richtest
-
-    - run: go test -v
+    - run: PATH=$HOME/go/bin/:$PATH go test -v
 
 
   test-win:
@@ -125,10 +114,6 @@ jobs:
 
     - run: |
         export GOBIN=$HOME/go/bin
-        go install github.com/kyoh86/richgo@latest
-        go install github.com/mitchellh/gox@latest
 
-    - run: RICHGO_FORCE_COLOR=1 PATH=$HOME/go/bin:$PATH make richtest
+    - run: PATH=$HOME/go/bin:$PATH go test -v
     
-    - run: go test -v
-
