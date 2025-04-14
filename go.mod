@@ -1,3 +1,3 @@
-module github.com/helviojunior/gopathresolver v0.1.0
+module github.com/helviojunior/gopathresolver
 
 go 1.23.0
