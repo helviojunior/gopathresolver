@@ -25,3 +25,8 @@ build/
 temp/
 IntelX/
 .temp_IntelX/
+
+# Test path
+mypath_parent/
+mypath_rel1/
+mypath_rel2/
