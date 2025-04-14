@@ -84,11 +84,19 @@ jobs:
 
 
   test-win:
-    name: MINGW64
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+        - windows
+        go:
+        - 23
+        - 24
+    name: '${{ matrix.platform }} | 1.${{ matrix.go }}.x'
+    runs-on: ${{ matrix.platform }}-latest
     defaults:
       run:
         shell: msys2 {0}
-    runs-on: windows-latest
     steps:
 
     - shell: bash

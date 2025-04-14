@@ -245,6 +245,5 @@ func removeFolder(path string) {
 
     }
 
-    return
 }
 
