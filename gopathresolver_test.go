@@ -18,7 +18,6 @@ import (
 	"testing"
     "runtime"
     "path/filepath"
-    "errors"
 )
 
 func TestFileNameOnly(t *testing.T) {
@@ -230,24 +229,22 @@ func TestAbsolutePathTransversal(t *testing.T) {
 }
 
 
-func removeFolder(path string) error {
+func removeFolder(path string) {
 
 	fi, err := os.Stat(path)
 
     if err != nil {
-    	return err
+    	return
     }
 
     if fi.Mode().IsDir() {
     	err = os.RemoveAll(path)
 		if err != nil {
-			return err
+			return
 		}
 
-    }else{
-    	return errors.New("Path is not a Directory!") 
     }
 
-    return nil
+    return
 }
 

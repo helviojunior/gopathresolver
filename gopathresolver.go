@@ -18,9 +18,9 @@ import (
 	"path/filepath"
 	"errors"
 	"os/user"
-    "io/ioutil"
     "runtime"
     "strings"
+    "fmt"
 )
 
 var PathSeparator = string(os.PathSeparator)
@@ -73,7 +73,7 @@ func ResolveFullPath(file_path string) (string, error) {
 	}
 
 	if runtime.GOOS == "windows" {
-	    pc := file_path[1:2]
+	    pc := file_path[1:3]
 	    if pc == ":\\" {
 	    	file_path, err = filepath.Abs(file_path)
 	    	if err != nil {
@@ -137,7 +137,7 @@ func IsValid(fp string) bool {
 
   // Attempt to create it
   var d []byte
-  if err := ioutil.WriteFile(fp, d, 0644); err == nil {
+  if err := os.WriteFile(fp, d, 0644); err == nil {
     os.Remove(fp) // And delete it
     return true
   }
@@ -156,7 +156,7 @@ func IsValidAndNotExists(fp string) (bool, error) {
 
 	// Attempt to create it
 	var d []byte
-	err = ioutil.WriteFile(fp, d, 0644)
+	err = os.WriteFile(fp, d, 0644)
 	if err != nil {
 		return false, err	
 	}
