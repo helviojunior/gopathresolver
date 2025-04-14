@@ -16,7 +16,7 @@ go get github.com/helviojunior/gopathresolver@v0
 import (
     "fmt"
 
-    resolver "github.com/helviojunior/gopathresolver@v0"
+    resolver "github.com/helviojunior/gopathresolver"
 )
 
 file := "~/teste.md"
