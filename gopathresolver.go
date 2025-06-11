@@ -59,16 +59,24 @@ func ResolveFullPath(file_path string) (string, error) {
        return "", err
     }
 
-	if fc == "." && file_path[0:3] != "../" && file_path[0:3] != "..\\" {
-		file_path, err = filepath.Abs(strings.Replace(file_path, ".", currentPath, 1))
-		if err != nil {
-	       return "", err
-	    }
-		if !IsValid(file_path) {
-			return "", errors.New("File path '"+ file_path + "' is not a valid path") 
+	if fc == "." {
+		doAction := false
+		if len(file_path) < 3 {
+			doAction = true
+		}else if file_path[0:3] != "../" && file_path[0:3] != "..\\" {
+			doAction = true
 		}
+		if doAction {
+			file_path, err = filepath.Abs(strings.Replace(file_path, ".", currentPath, 1))
+			if err != nil {
+		       return "", err
+		    }
+			if !IsValid(file_path) {
+				return "", errors.New("File path '"+ file_path + "' is not a valid path") 
+			}
 
-		return file_path, nil
+			return file_path, nil
+		}
 	}
 
 	if runtime.GOOS == "windows" {
@@ -127,6 +135,30 @@ func ResolveFullPath(file_path string) (string, error) {
 	return file_path, nil
 }
 
+func ResolveRelativePath(base_path string, full_path string) (string, error) {
+	var replacer string
+	replacer = "./"
+	if runtime.GOOS == "windows" {
+		replacer = ".\\"
+	}
+
+	p1, err := ResolveFullPath(base_path)
+    if err != nil {
+        return full_path, err
+    }
+
+    p2, err := ResolveFullPath(full_path)
+    if err != nil {
+        return full_path, err
+    }
+
+    new_path := strings.Replace(p2, p1, replacer, 1)
+    if !IsValid(new_path) {
+		return full_path, errors.New("File path '"+ new_path + "' is not a valid path") 
+	}
+
+    return new_path, nil
+}
 
 func IsValid(fp string) bool {
   // Check if file already exists
