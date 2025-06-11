@@ -137,9 +137,9 @@ func ResolveFullPath(file_path string) (string, error) {
 
 func ResolveRelativePath(base_path string, full_path string) (string, error) {
 	var replacer string
-	replacer = "./"
+	replacer = "/"
 	if runtime.GOOS == "windows" {
-		replacer = ".\\"
+		replacer = "\\"
 	}
 
 	p1, err := ResolveFullPath(base_path)
@@ -152,7 +152,11 @@ func ResolveRelativePath(base_path string, full_path string) (string, error) {
         return full_path, err
     }
 
-    new_path := strings.Replace(p2, p1, replacer, 1)
+    new_path := strings.Replace(p2, p1, "", 1)
+    if len(new_path) > 0 && new_path[0:1] == replacer {
+    	new_path = new_path[1:]
+    }
+    new_path = "." + replacer + new_path
     if !IsValid(new_path) {
 		return full_path, errors.New("File path '"+ new_path + "' is not a valid path") 
 	}

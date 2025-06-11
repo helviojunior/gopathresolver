@@ -14,6 +14,7 @@
 package gopathresolver
 
 import (
+	"fmt"
 	"os"
 	"testing"
     "runtime"
@@ -225,6 +226,24 @@ func TestAbsolutePathTransversal(t *testing.T) {
 	}
 	if _, err := ResolveFullPath(file); err != nil {
 		t.Error(err)
+	}
+}
+
+
+func TestRelativeResolver(t *testing.T) {
+	base := ""
+	file := ""
+	if runtime.GOOS == "windows" {
+		base = "c:\\..\\..\\windows\\"
+		file = "c:\\..\\..\\windows\\temp\\teste.md"
+	}else{
+		base = "/tmp/"
+		file = "/tmp/../../../tmp/teste.md"
+	}
+	if out, err := ResolveRelativePath(base, file); err != nil {
+		t.Error(err)
+	}else{
+		fmt.Printf("    Relative path: %s\n", out)
 	}
 }
 

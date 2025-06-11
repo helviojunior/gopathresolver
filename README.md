@@ -27,3 +27,8 @@ if resolvedPath, err := resolver.ResolveFullPath(file); err != nil {
 fmt.Println("Resolved path: ", resolvedPath)
 ```
 
+## Test
+
+```golang
+go test -v .
+```
